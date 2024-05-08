@@ -16,4 +16,10 @@ export const RegisterValSchema = z.object({
   password: z.string().refine(validatePassword, "Invalide password !"),
 });
 
+export const LoginValSchema = z.object({
+  email: z.string().refine(validateEmail, "Invalid email !"),
+  password: z.string().refine(validatePassword, "Invalide password !"),
+});
+
 export type RegisterFields = z.infer<typeof RegisterValSchema>;
+export type LoginFields = z.infer<typeof LoginValSchema>;

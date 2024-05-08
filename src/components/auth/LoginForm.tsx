@@ -1,15 +1,16 @@
-import { RegisterFields, RegisterValSchema } from "@/types/forms";
+import { LoginFields, LoginValSchema } from "@/types/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-import { LuEye, LuEyeOff } from "react-icons/lu";
+import { LuEye } from "react-icons/lu";
+import { LuEyeOff } from "react-icons/lu";
 import { useState } from "react";
 import { Description } from "./Description";
 import { Background } from "./Background";
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleToglePassword = () => {
@@ -19,19 +20,18 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFields>({
+  } = useForm<LoginFields>({
     mode: "onBlur",
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
-    resolver: zodResolver(RegisterValSchema),
+    resolver: zodResolver(LoginValSchema),
   });
-  const onSubmit: SubmitHandler<RegisterFields> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginFields> = (data) => console.log(data);
 
   return (
-    <div className=" xl:flex flex-row-reverse xl:mt-[64px] xl:gap-x-20">
+    <div className=" xl:flex flex-row-reverse xl:mt-[84px] xl:gap-x-20">
       <Background />
       <div className=" sm:mt-5">
         <div
@@ -40,23 +40,16 @@ export default function RegisterForm() {
         >
           <div className=" flex flex-col gap-4 md:gap-5">
             <h1 className=" text-prim-black text-3xl font-bold md:text-4xl">
-              Register
+              Login
             </h1>
             <p className=" text-[#121417CC] text-base md:text-xl">
-              To start using our services, please fill out the registration form
-              below. All fields are mandatory:
+              Please enter your login details to continue using our service:
             </p>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className=" mt-4 flex flex-col gap-3.5 md:mt-5 md:gap-5"
           >
-            <div>
-              <Input {...register("name")} placeholder="Name" />
-              <p className=" mt-2 text-sm text-red-500 pl-2">
-                {errors.name?.message}
-              </p>
-            </div>
             <div>
               <Input {...register("email")} placeholder="Email" />
               <p className=" mt-2 text-sm text-red-500 pl-2">
@@ -82,13 +75,13 @@ export default function RegisterForm() {
             </div>
             <div className=" flex flex-col gap-4">
               <Button type="submit" className=" mt-4 md:text-lg">
-                Register
+                Login
               </Button>
               <Link
-                to="/login"
+                to="/register"
                 className=" mx-auto text-[#12141780] font-bold underline"
               >
-                Login
+                Register
               </Link>
             </div>
           </form>

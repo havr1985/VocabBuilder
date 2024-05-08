@@ -22,6 +22,7 @@ const buttonVariants = cva(
       size: {
         default: "py-4 rounded-3xl",
         
+        
       },
     },
     defaultVariants: {

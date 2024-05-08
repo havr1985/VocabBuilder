@@ -31,6 +31,7 @@
   url('./shared/fonts/FixelDisplay-Bold.woff2') format("trutype");
 }
 
-/* body{
-  font-family: 'MacPaw Fixel Display';
-} */
+body{
+  color: #121417;
+  background-color: #FCFCFC;
+}
