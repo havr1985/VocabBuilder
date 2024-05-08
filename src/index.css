@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "MacPaw Fixel Display";
+  font-style: normal;
+  font-weight: 400;
+  src: local('MacPaw Fixel Display'),
+  url('./shared/fonts/FixelDisplay-Regular.woff2') format("trutype");
+}
+@font-face {
+  font-family: "MacPaw Fixel Display";
+  font-style: normal;
+  font-weight: 500;
+  src: local('MacPaw Fixel Display'),
+  url('./shared/fonts/FixelDisplay-Medium.woff2') format("trutype");
+}
+@font-face {
+  font-family: "MacPaw Fixel Display";
+  font-style: normal;
+  font-weight: 600;
+  src: local('MacPaw Fixel Display'),
+  url('./shared/fonts/FixelDisplay-SemiBold.woff2') format("trutype");
+}
+@font-face {
+  font-family: "MacPaw Fixel Display";
+  font-style: normal;
+  font-weight: 700;
+  src: local('MacPaw Fixel Display'),
+  url('./shared/fonts/FixelDisplay-Bold.woff2') format("trutype");
+}
+
+/* body{
+  font-family: 'MacPaw Fixel Display';
+} */
