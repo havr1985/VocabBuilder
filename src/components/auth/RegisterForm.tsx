@@ -8,15 +8,20 @@ import { LuEye, LuEyeOff } from "react-icons/lu";
 import { useState } from "react";
 import { Description } from "./Description";
 import { Background } from "./Background";
+import { useRegisterMutation } from "@/services/api/auth/userApi";
+import toast from "react-hot-toast";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [reg, { isError }] = useRegisterMutation();
 
   const handleToglePassword = () => {
     setShowPassword((prev) => !prev);
   };
+
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFields>({
@@ -28,10 +33,15 @@ export default function RegisterForm() {
     },
     resolver: zodResolver(RegisterValSchema),
   });
-  const onSubmit: SubmitHandler<RegisterFields> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterFields> = (data) => {
+    reg(data);
+
+    reset();
+  };
 
   return (
     <div className=" xl:flex flex-row-reverse xl:mt-[64px] xl:gap-x-20">
+      {isError && toast.error("Invalid email or password ! Try again !")}
       <Background />
       <div className=" sm:mt-5">
         <div

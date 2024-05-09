@@ -9,9 +9,12 @@ import { LuEyeOff } from "react-icons/lu";
 import { useState } from "react";
 import { Description } from "./Description";
 import { Background } from "./Background";
+import { useLoginMutation } from "@/services/api/auth/userApi";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [login, { isError }] = useLoginMutation();
 
   const handleToglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -19,6 +22,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginFields>({
     mode: "onBlur",
@@ -28,10 +32,14 @@ export default function LoginForm() {
     },
     resolver: zodResolver(LoginValSchema),
   });
-  const onSubmit: SubmitHandler<LoginFields> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginFields> = (data) => {
+    login(data);
+    reset();
+  };
 
   return (
     <div className=" xl:flex flex-row-reverse xl:mt-[84px] xl:gap-x-20">
+      {isError && toast.error("Invalid email or password ! Try again !")}
       <Background />
       <div className=" sm:mt-5">
         <div
