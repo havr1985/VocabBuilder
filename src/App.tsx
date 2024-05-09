@@ -10,6 +10,8 @@ import { PrivateRoutes } from "./components/routes/PrivateRoutes";
 const Home = lazy(() => import("./pages/HomePages"));
 const Register = lazy(() => import("@/pages/RegisterPages"));
 const Login = lazy(() => import("@/pages/LoginPages"));
+const Recommended = lazy(() => import("@/pages/RecommendedPage"));
+const Training = lazy(() => import("@/pages/TrainingPage"));
 
 function App() {
   const { isLoading } = useCurrentQuery();
@@ -29,11 +31,32 @@ function App() {
             />
             <Route
               path="/login"
+              element={<RestictedRoutes redirectTo="/" component={<Login />} />}
+            />
+            <Route
+              index
               element={
-                <RestictedRoutes redirectTo="/" component={<Login/>} />
+                <PrivateRoutes redirectTo="/login" component={<Home />} />
               }
-              />
-              <Route index element={<PrivateRoutes redirectTo="/login" component={<Home />} />} />
+            />
+            <Route
+              path="/recommended"
+              element={
+                <PrivateRoutes
+                  redirectTo="/login"
+                  component={<Recommended />}
+                />
+              }
+            />
+            <Route
+              path="/training"
+              element={
+                <PrivateRoutes
+                  redirectTo="/login"
+                  component={<Training />}
+                />
+              }
+            />
           </Route>
         </Routes>
       )}

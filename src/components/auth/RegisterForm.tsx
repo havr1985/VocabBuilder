@@ -45,7 +45,7 @@ export default function RegisterForm() {
       <Background />
       <div className=" sm:mt-5">
         <div
-          className=" bg-[#85AA9F1A] rounded-t-3xl py-8 px-2 h-screen md:mt-[140px] md:h-auto md:max-w-[627px] md:px-16 md:py-12
+          className=" bg-[#85AA9F1A] rounded-t-3xl py-8 px-2 h-full md:mt-[140px] md:h-auto md:max-w-[627px] md:px-16 md:py-12
      md:rounded-3xl md:mx-auto xl:mt-0"
         >
           <div className=" flex flex-col gap-4 md:gap-5">
