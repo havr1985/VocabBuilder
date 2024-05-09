@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserLoginReq, UserReq, User, CurrentUser } from "./type";
+import { UserLoginReq, UserReq, User, CurrentUser, UserLogout } from "./type";
 
 const BASE_URL = "https://vocab-builder-backend.p.goit.global/api";
 
@@ -44,8 +44,18 @@ export const userApi = createApi({
         method: "GET",
       }),
     }),
+    logout: builder.mutation<UserLogout, void>({
+      query: () => ({
+        url: "users/signout",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useCurrentQuery } =
-  userApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useCurrentQuery,
+  useLogoutMutation,
+} = userApi;

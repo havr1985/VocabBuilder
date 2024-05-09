@@ -5,12 +5,14 @@ import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { NavMenu } from "./NavMenu";
 import picture from "@/assets/illustration.png";
 import { GoArrowRight } from "react-icons/go";
+import { useLogoutMutation } from "@/services/api/auth/userApi";
 
 type Props = {
   name: string;
 };
 
 export const MobileMenu = ({ name }: Props) => {
+  const [logout] = useLogoutMutation()
   return (
     <Sheet>
       <SheetTrigger className=" xl:hidden">
@@ -26,7 +28,7 @@ export const MobileMenu = ({ name }: Props) => {
         </div>
         <div>
           <NavMenu />
-          <button type="button" className=" flex items-center gap-x-2 text-sm mt-7 text-prim-white">
+          <button type="button" onClick={() => logout()} className=" flex items-center gap-x-2 text-sm mt-7 text-prim-white">
             Log out <GoArrowRight />
           </button>
         </div>

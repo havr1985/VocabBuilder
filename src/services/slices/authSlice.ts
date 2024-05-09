@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userApi } from "../api/auth/userApi";
 import { RootState } from "../store";
 
+
 const INITIAL_STATE = {
   user: {
     name: "",
@@ -37,7 +38,15 @@ const authSlice = createSlice({
               state.user = payload;
               state.isAuth = true;
             }
-          );
+        )
+          .addMatcher(
+            userApi.endpoints.logout.matchFulfilled,
+            (state) => {
+              state.isAuth = false;
+              state.user = INITIAL_STATE.user;
+              localStorage.setItem("voc-token", "")
+            }
+      )
     },
 });
 

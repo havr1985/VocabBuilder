@@ -10,6 +10,10 @@ export type UserReq = {
     password: string;
 }
 
+export type UserLogout = {
+    message: string;
+}
+
 export type UserLoginReq = Omit<UserReq, 'name'>
 
 export type CurrentUser = User & { _id: string };
