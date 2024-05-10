@@ -10,6 +10,16 @@ function validatePassword(code: string) {
   return passwordPattern.test(code);
 }
 
+function validateEnField(code: string) {
+  const enPattern = /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/;
+  return enPattern.test(code)
+}
+
+function validateUaField(code: string) {
+  const uaPattern = /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u;
+  return uaPattern.test(code);
+}
+
 export const RegisterValSchema = z.object({
   name: z.string().min(2, "Too short !").max(100, "Too long !"),
   email: z.string().refine(validateEmail, "Invalid email !"),
@@ -21,5 +31,13 @@ export const LoginValSchema = z.object({
   password: z.string().refine(validatePassword, "Invalide password !"),
 });
 
+export const addWordValSchema = z.object({
+  category: z.string(),
+  isIrregular: z.boolean(),
+  ukrainian: z.string().refine(validateUaField, "Incorrect word!"),
+  english: z.string().refine(validateEnField, "Incorrect word !"),
+})
+
 export type RegisterFields = z.infer<typeof RegisterValSchema>;
 export type LoginFields = z.infer<typeof LoginValSchema>;
+export type addWordField = z.infer<typeof addWordValSchema>;

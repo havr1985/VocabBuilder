@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import "./App.css";
-import { Container } from "./components/Container";
+
 import { Route, Routes } from "react-router-dom";
 import { useCurrentQuery } from "./services/api/auth/userApi";
 import { Layout } from "./components/Layout";
@@ -17,7 +17,7 @@ function App() {
   const { isLoading } = useCurrentQuery();
 
   return (
-    <Container>
+    <>
       {isLoading ? (
         <div>Loading..</div>
       ) : (
@@ -51,16 +51,13 @@ function App() {
             <Route
               path="/training"
               element={
-                <PrivateRoutes
-                  redirectTo="/login"
-                  component={<Training />}
-                />
+                <PrivateRoutes redirectTo="/login" component={<Training />} />
               }
             />
           </Route>
         </Routes>
       )}
-    </Container>
+    </>
   );
 }
 
