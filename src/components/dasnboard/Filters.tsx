@@ -24,7 +24,7 @@ export const Filters = () => {
       </div>
       <div className=" w-full">
         <Select>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full text-prim-black border-slate-200">
             <SelectValue placeholder="Categories" />
           </SelectTrigger>
           <SelectContent>

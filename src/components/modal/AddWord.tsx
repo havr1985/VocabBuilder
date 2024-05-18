@@ -13,8 +13,8 @@ export const AddWord = () => {
         Add word <GoPlus className=" text-prim-green" />
       </DialogTrigger>
       <DialogContent>
-        <h2>Add word</h2>
-        <p>
+        <h2 className=" text-2xl text-prim-white font-semibold md:text-4xl md:mb-5">Add word</h2>
+        <p className=" text-prim-white md:text-xl">
           Adding a new word to the dictionary is an important step in enriching
           the language base and expanding the vocabulary.
               </p>
