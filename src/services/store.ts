@@ -2,6 +2,7 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { userApi } from "./api/auth/userApi";
 import auth from "@/services/slices/authSlice";
 import categories from "@/services/slices/categoriesSlice";
+import userWords from "@/services/slices/userWordsSlice";
 import { wordApi } from "./api/words/wordApi";
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     [wordApi.reducerPath]: wordApi.reducer,
     auth,
     categories,
+    userWords,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([userApi.middleware, wordApi.middleware]),

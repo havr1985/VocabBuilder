@@ -34,8 +34,8 @@ export const LoginValSchema = z.object({
 export const addWordValSchema = z.object({
   category: z.string(),
   isIrregular: z.boolean(),
-  ukrainian: z.string().refine(validateUaField, "Incorrect word!"),
-  english: z.string().refine(validateEnField, "Incorrect word !"),
+  ua: z.string().refine(validateUaField, "Incorrect word!"),
+  en: z.string().refine(validateEnField, "Incorrect word !"),
 })
 
 export type RegisterFields = z.infer<typeof RegisterValSchema>;

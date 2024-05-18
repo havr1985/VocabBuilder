@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/select";
 import { selectAllCategories } from "@/services/slices/categoriesSlice";
 import { GoSearch } from "react-icons/go";
-import { useUsersBooksQuery } from "@/services/api/words/wordApi";
+import { useUsersWordsQuery } from "@/services/api/words/wordApi";
 
 export const Filters = () => {
-    const allCategories = useAppSelector(selectAllCategories);
-    const { data } = useUsersBooksQuery();
-    console.log(data)
+  const allCategories = useAppSelector(selectAllCategories);
+  const { data } = useUsersWordsQuery();
+  console.log(data);
 
   return (
     <div className=" flex flex-col gap-2 pt-4">
