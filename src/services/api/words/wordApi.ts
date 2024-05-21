@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AddWordReq, UserWords, Word } from "./type";
-
+import { AddWordReq, DelWord, UserWords, Word } from "./type";
 
 const BASE_URL = "https://vocab-builder-backend.p.goit.global/api";
 enum TAGS {
-  WORD = 'WORD'
+  WORD = "WORD",
 }
 
 export const wordApi = createApi({
   reducerPath: "wordApi",
   tagTypes: [TAGS.WORD],
+  refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -27,12 +27,13 @@ export const wordApi = createApi({
         method: "GET",
       }),
     }),
-    usersWords: builder.query<UserWords, void>({
-      query: () => ({
+    usersWords: builder.query<UserWords, {keyword?:string, category?:string}>({
+      query: ({keyword, category}) => ({
         url: "/words/own",
         method: "GET",
+        params: {keyword, category},
       }),
-      providesTags: [TAGS.WORD]
+      providesTags: [TAGS.WORD],
     }),
     addWord: builder.mutation<Word, AddWordReq>({
       query: (body) => ({
@@ -40,9 +41,21 @@ export const wordApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: [TAGS.WORD]
+      invalidatesTags: [TAGS.WORD],
+    }),
+    deleteWord: builder.mutation<DelWord,  {id:string}>({
+      query: ({ id }) => ({
+        url: `/words/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [TAGS.WORD],
     }),
   }),
 });
 
-export const { useCategoriesQuery, useUsersWordsQuery, useAddWordMutation } = wordApi;
+export const {
+  useCategoriesQuery,
+  useUsersWordsQuery,
+  useAddWordMutation,
+  useDeleteWordMutation,
+} = wordApi;
