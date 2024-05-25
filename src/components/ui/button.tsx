@@ -11,12 +11,13 @@ const buttonVariants = cva(
       variant: {
         default: " bg-prim-green text-prim-white hover:bg-sec-green",
         secondary: " bg-prim-white text-prim-black hover:bg-sec-white hover:text-prim-green ",
-        cancel: "bg-inherrit border border-prim-white text-prim-white hover:bg-prim-white hover:text-prim-black"
+        cancel: "bg-inherrit border border-prim-white text-prim-white hover:bg-prim-white hover:text-prim-black",
+        pagDefault: "bg-inherrit border border-slate-200 text-prim-black ",
+        pagActive: "bg-prim-green text-prim-white",
       },
       size: {
         default: "py-4 rounded-3xl",
-        
-        
+        pagBase: "px-2.5 py-1 ronded-sm"
       },
     },
     defaultVariants: {

@@ -27,11 +27,11 @@ export const wordApi = createApi({
         method: "GET",
       }),
     }),
-    usersWords: builder.query<UserWords, {keyword?:string, category?:string}>({
-      query: ({keyword, category}) => ({
+    usersWords: builder.query<UserWords, {keyword?:string, category?:string, isIrregular?:boolean | string}>({
+      query: ({keyword, category, isIrregular}) => ({
         url: "/words/own",
         method: "GET",
-        params: {keyword, category},
+        params: {keyword, category, isIrregular},
       }),
       providesTags: [TAGS.WORD],
     }),

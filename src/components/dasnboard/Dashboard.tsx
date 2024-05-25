@@ -7,7 +7,7 @@ export const Dashboard = () => {
   const { data } = useCategoriesQuery();
   console.log(data)
   return (
-    <div className=" flex flex-col gap-10">
+    <div className=" flex flex-col gap-10 md:gap-8">
       <Filters />
       <HelperBoard/>
     </div>

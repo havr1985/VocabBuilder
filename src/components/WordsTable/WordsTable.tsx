@@ -8,6 +8,9 @@ import {
 } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 
+import ukr from "@/assets/ukraine.png";
+import gbr from "@/assets/united.png";
+
 import { useAppSelector } from "@/services/hooks";
 import { selectAllUserWords } from "@/services/slices/userWordsSlice";
 import { Popover, PopoverTrigger } from "../ui/popover";
@@ -22,25 +25,52 @@ export const WordsTable = () => {
 
   return (
     <Table>
-      <TableHeader className=" bg-[#85AA9F1A] text-prim-black">
-        <TableRow>
-          <TableHead className="w-[82px]">Words</TableHead>
-          <TableHead className=" w-[116px]">Translation</TableHead>
-          <TableHead className=" w-[95px]">Progress</TableHead>
-          <TableHead className=" w-[50px]"></TableHead>
+      <TableHeader className=" bg-[#85AA9F1A] text-prim-black md:text-lg md:font-medium">
+        <TableRow className=" ">
+          <TableHead className=" md:py-4">
+            <h2 className=" flex justify-between items-center">
+              Words{" "}
+              <img
+                src={gbr}
+                alt="kingsdom"
+                className=" hidden md:block md:w-8 md:h-8"
+              />
+            </h2>
+          </TableHead>
+          <TableHead className=" ">
+            <h2 className=" flex justify-between items-center">
+              Translation{" "}
+              <img
+                src={ukr}
+                alt="ukraine"
+                className=" hidden md:block md:w-8 md:h-8"
+              />
+            </h2>
+          </TableHead>
+          <TableHead className=" hidden xl:block xl:pt-4">
+            <h2>Category</h2>
+          </TableHead>
+          <TableHead className="">Progress</TableHead>
+          <TableHead className=" "></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className=" bg-prim-white">
         {results.map((item) => (
           <TableRow key={item._id}>
-            <TableCell className=" text-xs font-medium">{item.en}</TableCell>
-            <TableCell className=" text-xs">{item.ua}</TableCell>
+            <TableCell className=" text-xs font-medium md:text-base">
+              {item.en}
+            </TableCell>
+            <TableCell className=" text-xs md:text-base">{item.ua}</TableCell>
+            <TableCell className=" hidden xl:block xl:text-base">{item.category}</TableCell>
             <TableCell>
               <Progress value={25 * item.progress} />
+              <p className=" hidden md:block md:text-center md:font-medium">
+                {25 * item.progress}%
+              </p>
             </TableCell>
             <TableCell className="text-center">
               <Popover>
-                <PopoverTrigger>...</PopoverTrigger>
+                <PopoverTrigger className=" md:text-lg">...</PopoverTrigger>
                 <PopoverContent
                   align="end"
                   className=" bg-white py-3 px-6 z-50 rounded-xl"
