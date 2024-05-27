@@ -4,8 +4,8 @@ export type Word = {
   ua: string;
   category: string;
   isIrregular?: boolean | undefined;
-  owner: string;
-  progress: number;
+  owner?: string;
+  progress?: number;
 };
 export type UserWords = {
   results: Word[];

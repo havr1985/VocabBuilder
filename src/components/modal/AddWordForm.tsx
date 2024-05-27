@@ -51,8 +51,6 @@ export const AddWordForm = () => {
         ua: data.ua,
       })
     }
-    
-    console.log(data)
     reset();
   };
   return (
@@ -70,7 +68,7 @@ export const AddWordForm = () => {
           }}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Categories" />
+            <SelectValue placeholder="Categories"/>
           </SelectTrigger>
           <SelectContent>
             {allCategories.map((item) => (

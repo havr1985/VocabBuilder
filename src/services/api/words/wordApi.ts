@@ -27,11 +27,14 @@ export const wordApi = createApi({
         method: "GET",
       }),
     }),
-    usersWords: builder.query<UserWords, {keyword?:string, category?:string, isIrregular?:boolean | string}>({
-      query: ({keyword, category, isIrregular}) => ({
+    usersWords: builder.query<
+      UserWords,
+      { keyword?: string; category?: string; isIrregular?: boolean | string; page?: number }
+    >({
+      query: ({ keyword, category, isIrregular, page }) => ({
         url: "/words/own",
         method: "GET",
-        params: {keyword, category, isIrregular},
+        params: { keyword, category, isIrregular, page },
       }),
       providesTags: [TAGS.WORD],
     }),
@@ -43,12 +46,22 @@ export const wordApi = createApi({
       }),
       invalidatesTags: [TAGS.WORD],
     }),
-    deleteWord: builder.mutation<DelWord,  {id:string}>({
+    deleteWord: builder.mutation<DelWord, { id: string }>({
       query: ({ id }) => ({
         url: `/words/delete/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [TAGS.WORD],
+    }),
+    otherWords: builder.query<
+      UserWords,
+      { keyword?: string; category?: string; isIrregular?: boolean | string; page?: number }
+    >({
+      query: ({ keyword, category, isIrregular, page }) => ({
+        url: '/words/all',
+        method: 'GET',
+        params: { keyword, category, isIrregular, page },
+      }),
     }),
   }),
 });
@@ -58,4 +71,5 @@ export const {
   useUsersWordsQuery,
   useAddWordMutation,
   useDeleteWordMutation,
+  useOtherWordsQuery,
 } = wordApi;

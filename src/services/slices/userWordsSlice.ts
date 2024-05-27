@@ -25,6 +25,15 @@ const userWordsSlice = createSlice({
                     state.totalPages = payload.totalPages;
                     state.page = payload.page;
                     state.perPage = payload.perPage;
+                },
+        )
+            .addMatcher(
+                wordApi.endpoints.otherWords.matchFulfilled,
+                (state, { payload }) => {
+                    state.results = payload.results;
+                    state.totalPages = payload.totalPages;
+                    state.page = payload.page;
+                    state.perPage = payload.perPage;
                 }
         )
     }

@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/services/hooks";
+import { useAppDispatch, useAppSelector } from "@/services/hooks";
 import { Input } from "../ui/input";
 import { debounce } from "lodash";
 import {
@@ -10,41 +10,47 @@ import {
 } from "@/components/ui/select";
 import { selectAllCategories } from "@/services/slices/categoriesSlice";
 import { GoSearch } from "react-icons/go";
-import { useUsersWordsQuery } from "@/services/api/words/wordApi";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { ChangeFilters } from "@/services/slices/filtersSlice";
+import { ChangePage } from "@/services/slices/paginationSlice";
 
 export const Filters = () => {
   const allCategories = useAppSelector(selectAllCategories);
+  const dispatch = useAppDispatch();
+
   const [keyword, setKeyword] = useState("");
   const [debounceKeyword, setDebounceKeyword] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [isIrregular, setIsIrregular] = useState<boolean | string>('');
-
-  console.log(isIrregular);
-
-  const { data, isLoading } = useUsersWordsQuery({
-    keyword: debounceKeyword || "",
-    category: selectedCategory,
-    isIrregular,
-  });
-  console.log(data);
+  const [isIrregular, setIsIrregular] = useState<boolean | string>("");
+  const isMounted = useRef(false)
 
   useEffect(() => {
     const handler = debounce((query: string) => {
       setDebounceKeyword(query);
-    }, 300);
+    }, 500);
     handler(keyword.trim());
-
+    
     return () => {
       handler.cancel();
     };
   }, [keyword]);
 
+  useEffect(() => {
+    if (isMounted.current) {
+      dispatch(
+        ChangeFilters({ debounceKeyword, selectedCategory, isIrregular })
+      );
+      dispatch(ChangePage(1))
+    } else {
+      isMounted.current = true;
+    }
+    
+  }, [debounceKeyword, selectedCategory, isIrregular, dispatch]);
+
   return (
     <div className=" flex flex-col gap-2 md:pt-10 md:flex-row md:items-center ">
-      {isLoading && <div>Loading...</div>}
       <div className=" relative md:w-[246px]">
         <Input
           type="text"
@@ -69,7 +75,7 @@ export const Filters = () => {
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
             {allCategories.map((item) => (
-              <SelectItem key={item} value={item}>
+              <SelectItem key={item} value={item} >
                 {item}
               </SelectItem>
             ))}

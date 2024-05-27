@@ -3,6 +3,8 @@ import { userApi } from "./api/auth/userApi";
 import auth from "@/services/slices/authSlice";
 import categories from "@/services/slices/categoriesSlice";
 import userWords from "@/services/slices/userWordsSlice";
+import pagination from "@/services/slices/paginationSlice";
+import filters from "@/services/slices/filtersSlice";
 import { wordApi } from "./api/words/wordApi";
 
 export const store = configureStore({
@@ -12,6 +14,8 @@ export const store = configureStore({
     auth,
     categories,
     userWords,
+    pagination,
+    filters,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([userApi.middleware, wordApi.middleware]),

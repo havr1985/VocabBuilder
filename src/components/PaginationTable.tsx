@@ -7,18 +7,25 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useAppDispatch } from "@/services/hooks";
+import { ChangePage } from "@/services/slices/paginationSlice";
 
 import { selectAllUserWords } from "@/services/slices/userWordsSlice";
 import { creatArray } from "@/shared/function/function";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const PaginationTable = () => {
+  
   const { totalPages } = useSelector(selectAllUserWords);
   const [currentPage, setCurrentPage] = useState(1);
-  
+  const dispatch = useAppDispatch();
 
   const pages = creatArray(totalPages);
+
+  useEffect(() => {
+    dispatch(ChangePage(currentPage));
+  }, [currentPage, dispatch]);
 
   const prevClick = () => {
     if (currentPage === 1) {
@@ -36,7 +43,7 @@ export const PaginationTable = () => {
 
   return (
     <>
-      {totalPages === 1 ? null : (
+      {totalPages === 1 || !totalPages ? null : (
         <Pagination>
           <PaginationContent>
             <PaginationItem className=" cursor-pointer">
